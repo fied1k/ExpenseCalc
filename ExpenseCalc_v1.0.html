@@ -1,9 +1,8 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="version" content="1.1">
-    <title>Cost Calculator v1.1</title>
+    <title>Cost Calculator</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Immediate theme check to prevent white flash in dark vehicle cabs -->
     <script>
@@ -592,138 +591,16 @@
             color: white;
             border-color: var(--success);
         }
-
-        /* Loading Spinner */
-        .spinner {
-            display: inline-block;
-            width: 13px;
-            height: 13px;
-            border: 2px solid rgba(255, 255, 255, 0.35);
-            border-radius: 50%;
-            border-top-color: #ffffff;
-            animation: spin 0.7s linear infinite;
-            margin-right: 8px;
-            vertical-align: -2px;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Receipt Empty State Preview */
-        .receipt-empty-state {
-            padding: 8px 0;
-            text-align: center;
-        }
-
-        .receipt-empty-icon {
-            font-size: 26px;
-            margin-bottom: 4px;
-            opacity: 0.65;
-        }
-
-        .receipt-empty-title {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--text-muted);
-            margin-bottom: 14px;
-        }
-
-        .receipt-empty-preview {
-            border: 1px dashed var(--border-strong);
-            border-radius: var(--radius-md);
-            padding: 12px 14px;
-            background: var(--sub-box-bg);
-            text-align: left;
-        }
-
-        .receipt-preview-line {
-            display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-            color: var(--text-muted);
-            padding: 4px 0;
-        }
-
-        .receipt-preview-line.total-line {
-            border-top: 1px dashed var(--border-strong);
-            margin-top: 6px;
-            padding-top: 8px;
-            font-weight: 700;
-            color: var(--text-main);
-        }
-
-        /* Mobile Sticky Summary Bar (Cab-Friendly) */
-        .mobile-summary-bar {
-            display: none;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: var(--card-bg);
-            border-top: 1px solid var(--border-strong);
-            box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.2);
-            padding: 10px 16px;
-            z-index: 999;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .mobile-summary-info {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .mobile-summary-label {
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            letter-spacing: 0.03em;
-        }
-
-        .mobile-summary-amount {
-            font-size: 20px;
-            font-weight: 800;
-            color: var(--success);
-            font-family: var(--font-sans);
-        }
-
-        .mobile-copy-btn {
-            background-color: var(--btn-secondary-bg);
-            color: var(--btn-secondary-text);
-            border: 1px solid var(--border-strong);
-            padding: 8px 14px;
-            border-radius: var(--radius-md);
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .mobile-copy-btn.success {
-            background-color: var(--success);
-            color: #ffffff;
-            border-color: var(--success);
-        }
-
-        @media (max-width: 819px) {
-            .mobile-summary-bar.is-visible {
-                display: flex;
-            }
-            body.has-mobile-bar {
-                padding-bottom: 74px;
-            }
-        }
     </style>
 </head>
 <body>
 
     <div class="app-wrapper">
         <div class="header-row">
-            <h1>Cost Calculator <span class="version-tag" style="font-size: 12px; font-weight: 500; color: var(--text-muted); vertical-align: middle;">v1.1</span></h1>
+            <h1>Cost Calculator</h1>
             <div class="header-controls">
-                <button type="button" id="themeToggleBtn" class="theme-toggle-btn" aria-label="Toggle Theme">🌙 Dark</button>
-                <button type="button" id="settingsToggleBtn" class="settings-toggle-btn">⚙️ Settings <span id="settingsChevron">▾</span></button>
+                <button type="button" id="themeToggleBtn" class="theme-toggle-btn" aria-label="Toggle Theme">≡ƒîÖ Dark</button>
+                <button type="button" id="settingsToggleBtn" class="settings-toggle-btn">ΓÜÖ∩╕Å Settings</button>
             </div>
         </div>
 
@@ -764,11 +641,11 @@
                         <div class="auto-calc-box">
                             <p>Enter Address or US ZIP</p>
                             <div class="autocomplete-container">
-                                <input type="text" id="startLoc" placeholder="📍 Start (e.g., 66204)" autocomplete="off">
+                                <input type="text" id="startLoc" placeholder="Start (e.g., 66204)" autocomplete="off">
                                 <div id="startList" class="autocomplete-items"></div>
                             </div>
                             <div class="autocomplete-container">
-                                <input type="text" id="endLoc" placeholder="🏁 End (e.g., Kansas City, MO)" autocomplete="off">
+                                <input type="text" id="endLoc" placeholder="End (e.g., Kansas City, MO)" autocomplete="off">
                                 <div id="endList" class="autocomplete-items"></div>
                             </div>
                             <div class="action-row">
@@ -780,13 +657,13 @@
                     </div>
 
                     <div class="input-group">
-                        <label for="miles">🚗 Miles (One Way):</label>
-                        <input type="number" id="miles" placeholder="0.0" step="0.5" min="0">
+                        <label for="miles">Miles (One Way):</label>
+                        <input type="number" id="miles" placeholder="0.0" step="0.5">
                     </div>
 
                     <div class="input-group">
-                        <label for="hours">⏱️ Hours (One Way):</label>
-                        <input type="number" id="hours" placeholder="0.0" step="0.5" min="0">
+                        <label for="hours">Hours (One Way):</label>
+                        <input type="number" id="hours" placeholder="0.0" step="0.5">
                     </div>
 
                     <div class="input-group">
@@ -804,16 +681,7 @@
                         <span>Cost Breakdown</span>
                     </div>
                     <div id="breakdown">
-                        <div class="receipt-empty-state">
-                            <div class="receipt-empty-icon">🧾</div>
-                            <div class="receipt-empty-title">Awaiting trip or expense details</div>
-                            <div class="receipt-empty-preview">
-                                <div class="receipt-preview-line"><span>Mileage Cost (after 30 mi ded.)</span><span>$0.00</span></div>
-                                <div class="receipt-preview-line"><span>Driving Time Cost</span><span>$0.00</span></div>
-                                <div class="receipt-preview-line"><span>Additional Expenses</span><span>$0.00</span></div>
-                                <div class="receipt-preview-line total-line"><span>Grand Total</span><span>$0.00</span></div>
-                            </div>
-                        </div>
+                        <span style="color: var(--text-muted); font-size: 13px;">Enter values to see the math breakdown.</span>
                     </div>
                     <button type="button" id="copyBtn" class="copy-btn">Copy to Clipboard</button>
                 </div>
@@ -821,17 +689,7 @@
         </div>
     </div>
 
-    <!-- Mobile Sticky Bottom Summary (Cab-Friendly) -->
-    <div id="mobileSummaryBar" class="mobile-summary-bar">
-        <div class="mobile-summary-info">
-            <span class="mobile-summary-label">Grand Total</span>
-            <span class="mobile-summary-amount" id="mobileTotalAmount">$0.00</span>
-        </div>
-        <button type="button" id="mobileCopyBtn" class="mobile-copy-btn">📋 Copy</button>
-    </div>
-
     <script>
-        const APP_VERSION = "1.1";
         const DEDUCTIBLE_MILES = 30.0;
         const DRIVE_TIME_ADJUSTMENT = 0.81;
         const FALLBACK_START_ADDRESS = "";
@@ -854,35 +712,10 @@
             maximumFractionDigits: 0
         });
 
-        // Session-persistent geocode cache to minimize API calls
         const geocodeCache = new Map();
-        try {
-            const cached = sessionStorage.getItem('costCalc_geocodeCache');
-            if (cached) {
-                const parsed = JSON.parse(cached);
-                Object.entries(parsed).forEach(([k, v]) => geocodeCache.set(k, v));
-            }
-        } catch (e) {
-            console.warn("Could not load sessionStorage geocache", e);
-        }
-
-        function setCachedGeocode(key, data) {
-            geocodeCache.set(key, data);
-            try {
-                const obj = Object.fromEntries(geocodeCache.entries());
-                sessionStorage.setItem('costCalc_geocodeCache', JSON.stringify(obj));
-            } catch (e) {
-                // Ignore storage quota or serialization errors
-            }
-        }
-
-        // Dedicated autocomplete state per input element to prevent race conditions
-        const autocompleteStates = {
-            startLoc: { controller: null, timer: null },
-            endLoc: { controller: null, timer: null },
-            defaultStartInput: { controller: null, timer: null }
-        };
+        let autocompleteController = null;
         let routeController = null;
+        let debounceTimer = null;
         let nextExpenseId = 1;
 
         const state = {
@@ -905,7 +738,7 @@
             const btn = document.getElementById('themeToggleBtn');
             if (!btn) return;
             const isDark = isCurrentlyDarkMode();
-            btn.innerHTML = isDark ? '☀️ Light' : '🌙 Dark';
+            btn.innerHTML = isDark ? 'ΓÿÇ∩╕Å Light' : '≡ƒîÖ Dark';
             btn.title = isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode';
         }
 
@@ -923,26 +756,20 @@
             return Math.ceil(Number(val.toFixed(4)) * 2) / 2;
         }
 
-        // HTML escape helper to prevent XSS injection in expense names
-        function escapeHtml(str) {
-            if (!str) return '';
-            return String(str)
-                .replace(/&/g, '&amp;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;')
-                .replace(/"/g, '&quot;')
-                .replace(/'/g, '&#039;');
-        }
+        function renderCalculation() {
+            if (state.miles === 0 && state.hours === 0 && state.expenses.length === 0) {
+                document.getElementById('breakdown').innerHTML = '<span style="color: var(--text-muted); font-size: 13px;">Enter values to see the math breakdown.</span>';
+                document.getElementById('copyBtn').style.display = 'none';
+                return;
+            }
 
-        // Centralized calculation logic: single source of truth for UI and Clipboard
-        function calculateTotals(currentState) {
             const roundtripMultiplier = 2;
-            const milesTotal = Math.ceil(currentState.miles * roundtripMultiplier);
+            const milesTotal = Math.ceil(state.miles * roundtripMultiplier);
             const billableMiles = Math.ceil(Math.max(0, milesTotal - DEDUCTIBLE_MILES));
-            const totalMileCost = billableMiles * currentState.mileRate;
+            const totalMileCost = billableMiles * state.mileRate;
 
-            const billableHours = Math.ceil(currentState.hours * roundtripMultiplier);
-            const totalHourCost = billableHours * currentState.hourRate;
+            const billableHours = Math.ceil(state.hours * roundtripMultiplier);
+            const totalHourCost = billableHours * state.hourRate;
 
             let deductionText = "";
             if (milesTotal > 0 && milesTotal < DEDUCTIBLE_MILES) {
@@ -952,60 +779,16 @@
             }
 
             let totalAdditionalCost = 0;
-            const validExpenses = [];
-            (currentState.expenses || []).forEach(exp => {
-                const cost = parseFloat(exp.cost) || 0;
-                if (cost > 0) {
-                    totalAdditionalCost += cost;
-                    validExpenses.push({
-                        name: (exp.name || '').trim() || "Item",
-                        cost: cost
-                    });
+            let expenseItemsHtml = "";
+            state.expenses.forEach(exp => {
+                if (exp.cost > 0) {
+                    const name = exp.name || "Item";
+                    totalAdditionalCost += exp.cost;
+                    expenseItemsHtml += `${name}: ${currencyFormatter.format(exp.cost)}<br>`;
                 }
             });
 
             const grandTotal = totalMileCost + totalHourCost + totalAdditionalCost;
-            const hasData = currentState.miles > 0 || currentState.hours > 0 || validExpenses.length > 0;
-
-            return {
-                hasData,
-                roundtripMultiplier,
-                milesTotal,
-                billableMiles,
-                totalMileCost,
-                billableHours,
-                totalHourCost,
-                deductionText,
-                validExpenses,
-                totalAdditionalCost,
-                grandTotal
-            };
-        }
-
-        function renderCalculation() {
-            const totals = calculateTotals(state);
-            const breakdownEl = document.getElementById('breakdown');
-            const copyBtn = document.getElementById('copyBtn');
-            const mobileBar = document.getElementById('mobileSummaryBar');
-            const mobileTotalEl = document.getElementById('mobileTotalAmount');
-
-            if (!totals.hasData) {
-                breakdownEl.innerHTML = `
-                    <div class="receipt-empty-state">
-                        <div class="receipt-empty-icon">🧾</div>
-                        <div class="receipt-empty-title">Awaiting trip or expense details</div>
-                        <div class="receipt-empty-preview">
-                            <div class="receipt-preview-line"><span>Mileage Cost (after 30 mi ded.)</span><span>$0.00</span></div>
-                            <div class="receipt-preview-line"><span>Driving Time Cost</span><span>$0.00</span></div>
-                            <div class="receipt-preview-line"><span>Additional Expenses</span><span>$0.00</span></div>
-                            <div class="receipt-preview-line total-line"><span>Grand Total</span><span>$0.00</span></div>
-                        </div>
-                    </div>`;
-                copyBtn.style.display = 'none';
-                if (mobileBar) mobileBar.classList.remove('is-visible');
-                document.body.classList.remove('has-mobile-bar');
-                return;
-            }
 
             const milesBlock = `
                 <div class="ledger-item">
@@ -1016,12 +799,12 @@
                                 <span class="badge badge-rate">${rateFormatter.format(state.mileRate)}/mi</span>
                             </div>
                             <div class="ledger-math">
-                                ${state.miles.toFixed(1)} One Way miles × 2 = ${wholeNumberFormatter.format(totals.milesTotal)} RT total miles<br>
-                                ${totals.deductionText}<br>
-                                ${wholeNumberFormatter.format(totals.billableMiles)} billable miles × ${rateFormatter.format(state.mileRate)}
+                                ${state.miles.toFixed(1)} One Way miles ├ù 2 = ${wholeNumberFormatter.format(milesTotal)} RT total miles<br>
+                                ${deductionText}<br>
+                                ${wholeNumberFormatter.format(billableMiles)} billable miles ├ù ${rateFormatter.format(state.mileRate)}
                             </div>
                         </div>
-                        <div class="ledger-amount">${currencyFormatter.format(totals.totalMileCost)}</div>
+                        <div class="ledger-amount">${currencyFormatter.format(totalMileCost)}</div>
                     </div>
                 </div>`;
 
@@ -1034,45 +817,33 @@
                                 <span class="badge badge-rate">${currencyFormatter.format(state.hourRate)}/hr</span>
                             </div>
                             <div class="ledger-math">
-                                ${state.hours.toFixed(1)} One Way hrs × 2 = ${wholeNumberFormatter.format(totals.billableHours)} billable hours<br>
-                                ${wholeNumberFormatter.format(totals.billableHours)} billable hrs × ${currencyFormatter.format(state.hourRate)}/hr
+                                ${state.hours.toFixed(1)} One Way hrs ├ù 2 = ${wholeNumberFormatter.format(billableHours)} billable hours<br>
+                                ${wholeNumberFormatter.format(billableHours)} billable hrs ├ù ${currencyFormatter.format(state.hourRate)}/hr
                             </div>
                         </div>
-                        <div class="ledger-amount">${currencyFormatter.format(totals.totalHourCost)}</div>
+                        <div class="ledger-amount">${currencyFormatter.format(totalHourCost)}</div>
                     </div>
                 </div>`;
 
-            let expenseItemsHtml = "";
-            totals.validExpenses.forEach(exp => {
-                expenseItemsHtml += `${escapeHtml(exp.name)}: ${currencyFormatter.format(exp.cost)}<br>`;
-            });
-
-            const expensesBlock = totals.totalAdditionalCost > 0 ? `
+            const expensesBlock = totalAdditionalCost > 0 ? `
                 <div class="ledger-item">
                     <div class="ledger-main">
                         <div class="ledger-desc">
                             <div class="ledger-title">Additional Expenses</div>
                             <div class="ledger-math">${expenseItemsHtml}</div>
                         </div>
-                        <div class="ledger-amount">${currencyFormatter.format(totals.totalAdditionalCost)}</div>
+                        <div class="ledger-amount">${currencyFormatter.format(totalAdditionalCost)}</div>
                     </div>
                 </div>` : '';
 
             const grandTotalBlock = `
                 <div class="ledger-total">
                     <span class="ledger-total-label">Grand Total</span>
-                    <span class="ledger-total-amount">${currencyFormatter.format(totals.grandTotal)}</span>
+                    <span class="ledger-total-amount">${currencyFormatter.format(grandTotal)}</span>
                 </div>`;
 
-            breakdownEl.innerHTML = milesBlock + hoursBlock + expensesBlock + grandTotalBlock;
-            copyBtn.style.display = 'block';
-
-            // Sync Mobile Sticky Bar
-            if (mobileBar && mobileTotalEl) {
-                mobileTotalEl.textContent = currencyFormatter.format(totals.grandTotal);
-                mobileBar.classList.add('is-visible');
-                document.body.classList.add('has-mobile-bar');
-            }
+            document.getElementById('breakdown').innerHTML = milesBlock + hoursBlock + expensesBlock + grandTotalBlock;
+            document.getElementById('copyBtn').style.display = 'block';
         }
 
         function addExpenseRow() {
@@ -1086,7 +857,7 @@
             row.innerHTML = `
                 <input type="text" class="expense-name" placeholder="Item (e.g. Tolls)">
                 <input type="number" class="expense-cost" placeholder="$0.00" step="0.01">
-                <button type="button" class="remove-btn" title="Remove Item">✕</button>
+                <button type="button" class="remove-btn" title="Remove Item">Γ£ò</button>
             `;
             container.appendChild(row);
             row.querySelector('.expense-name').focus();
@@ -1104,9 +875,7 @@
 
         function toggleRateSettings() {
             const box = document.getElementById('rateSettingsBox');
-            const chevron = document.getElementById('settingsChevron');
-            const isOpen = box.classList.toggle('is-open');
-            if (chevron) chevron.textContent = isOpen ? '▴' : '▾';
+            box.classList.toggle('is-open');
         }
 
         function saveRatesAndRecalculate() {
@@ -1122,29 +891,13 @@
         }
 
         function saveDefaultStartLocation() {
-            const defaultStartInput = document.getElementById('defaultStartInput');
-            const newAddress = defaultStartInput.value.trim();
-            const lat = defaultStartInput.getAttribute('data-lat') || '';
-            const lon = defaultStartInput.getAttribute('data-lon') || '';
-
+            const newAddress = document.getElementById('defaultStartInput').value.trim();
             localStorage.setItem('costCalc_startAddress', newAddress);
-            if (lat && lon) {
-                localStorage.setItem('costCalc_startLat', lat);
-                localStorage.setItem('costCalc_startLon', lon);
-            } else {
-                localStorage.removeItem('costCalc_startLat');
-                localStorage.removeItem('costCalc_startLon');
-            }
 
             const startInput = document.getElementById('startLoc');
             startInput.value = newAddress;
-            if (lat && lon) {
-                startInput.setAttribute('data-lat', lat);
-                startInput.setAttribute('data-lon', lon);
-            } else {
-                startInput.removeAttribute('data-lat');
-                startInput.removeAttribute('data-lon');
-            }
+            startInput.removeAttribute('data-lat');
+            startInput.removeAttribute('data-lon');
 
             const status = document.getElementById('saveStatus');
             status.innerText = newAddress ? "Saved as default start address!" : "Default start address cleared!";
@@ -1153,41 +906,21 @@
         }
 
         function useCurrentStartLocation() {
-            const startInput = document.getElementById('startLoc');
-            const defaultStartInput = document.getElementById('defaultStartInput');
-            defaultStartInput.value = startInput.value.trim();
-            const lat = startInput.getAttribute('data-lat');
-            const lon = startInput.getAttribute('data-lon');
-            if (lat && lon) {
-                defaultStartInput.setAttribute('data-lat', lat);
-                defaultStartInput.setAttribute('data-lon', lon);
-            } else {
-                defaultStartInput.removeAttribute('data-lat');
-                defaultStartInput.removeAttribute('data-lon');
-            }
+            const currentVal = document.getElementById('startLoc').value.trim();
+            document.getElementById('defaultStartInput').value = currentVal;
             saveDefaultStartLocation();
         }
 
         function resetCalculator() {
             hideError();
-            Object.values(autocompleteStates).forEach(item => {
-                if (item.timer) clearTimeout(item.timer);
-                if (item.controller) item.controller.abort();
-            });
+            if (autocompleteController) autocompleteController.abort();
             if (routeController) routeController.abort();
 
             const savedStart = localStorage.getItem('costCalc_startAddress') ?? FALLBACK_START_ADDRESS;
-            const savedLat = localStorage.getItem('costCalc_startLat');
-            const savedLon = localStorage.getItem('costCalc_startLon');
             const startInput = document.getElementById('startLoc');
             startInput.value = savedStart;
-            if (savedLat && savedLon) {
-                startInput.setAttribute('data-lat', savedLat);
-                startInput.setAttribute('data-lon', savedLon);
-            } else {
-                startInput.removeAttribute('data-lat');
-                startInput.removeAttribute('data-lon');
-            }
+            startInput.removeAttribute('data-lat');
+            startInput.removeAttribute('data-lon');
 
             const endInput = document.getElementById('endLoc');
             endInput.value = '';
@@ -1237,11 +970,8 @@
             inputField.removeAttribute('data-lat');
             inputField.removeAttribute('data-lon');
             hideError();
-
-            const fieldId = inputField.id;
-            const acState = autocompleteStates[fieldId] || { controller: null, timer: null };
-            clearTimeout(acState.timer);
-
+            
+            clearTimeout(debounceTimer);
             const query = inputField.value.trim();
             const list = document.getElementById(listId);
             
@@ -1250,9 +980,9 @@
                 return;
             }
             
-            acState.timer = setTimeout(async () => {
-                if (acState.controller) acState.controller.abort();
-                acState.controller = new AbortController();
+            debounceTimer = setTimeout(async () => {
+                if (autocompleteController) autocompleteController.abort();
+                autocompleteController = new AbortController();
 
                 const cacheKey = `geo_${query.toLowerCase()}`;
                 try {
@@ -1261,10 +991,10 @@
                         data = geocodeCache.get(cacheKey);
                     } else {
                         const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&limit=6&countrycodes=us&q=${encodeURIComponent(query)}`, {
-                            signal: acState.controller.signal
+                            signal: autocompleteController.signal
                         });
                         data = await res.json();
-                        setCachedGeocode(cacheKey, data);
+                        geocodeCache.set(cacheKey, data);
                     }
 
                     list.innerHTML = '';
@@ -1305,13 +1035,13 @@
                 if (e.key === 'ArrowDown') {
                     e.preventDefault();
                     if (activeIndex > -1) items[activeIndex].classList.remove('autocomplete-active');
-                    activeIndex = activeIndex < items.length - 1 ? activeIndex + 1 : 0;
+                    activeIndex = (activeIndex + 1) % items.length;
                     items[activeIndex].classList.add('autocomplete-active');
                     items[activeIndex].scrollIntoView({ block: 'nearest' });
                 } else if (e.key === 'ArrowUp') {
                     e.preventDefault();
                     if (activeIndex > -1) items[activeIndex].classList.remove('autocomplete-active');
-                    activeIndex = activeIndex <= 0 ? items.length - 1 : activeIndex - 1;
+                    activeIndex = (activeIndex - 1 + items.length) % items.length;
                     items[activeIndex].classList.add('autocomplete-active');
                     items[activeIndex].scrollIntoView({ block: 'nearest' });
                 } else if (e.key === 'Enter') {
@@ -1342,7 +1072,7 @@
             } else {
                 const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=us&q=${encodeURIComponent(query)}`, { signal });
                 data = await res.json();
-                setCachedGeocode(cacheKey, data);
+                geocodeCache.set(cacheKey, data);
             }
             
             if (!data || data.length === 0) throw new Error(`Address not found: "${query}"`);
@@ -1360,7 +1090,7 @@
                 return;
             }
 
-            btn.innerHTML = '<span class="spinner"></span>Calculating...';
+            btn.innerText = "Calculating...";
             btn.disabled = true;
 
             if (routeController) routeController.abort();
@@ -1402,58 +1132,65 @@
                     showError(error.message);
                 }
             } finally {
-                btn.innerHTML = "Calculate Route";
+                btn.innerText = "Calculate Route";
                 btn.disabled = false;
             }
         }
 
         function copyBreakdown() {
-            const totals = calculateTotals(state);
-            if (!totals.hasData) return;
+            const roundtripMultiplier = 2;
+            const milesTotal = Math.ceil(state.miles * roundtripMultiplier);
+            const billableMiles = Math.ceil(Math.max(0, milesTotal - DEDUCTIBLE_MILES));
+            const totalMileCost = billableMiles * state.mileRate;
 
-            let lines = [
-                `Mileage Cost: ${currencyFormatter.format(totals.totalMileCost)}`,
-                `${state.miles.toFixed(1)} One Way miles × 2 = ${wholeNumberFormatter.format(totals.milesTotal)} RT total miles`,
-                totals.deductionText,
-                `${wholeNumberFormatter.format(totals.billableMiles)} billable miles × ${rateFormatter.format(state.mileRate)}`,
-                "",
-                `Driving Time Cost: ${currencyFormatter.format(totals.totalHourCost)}`,
-                `${state.hours.toFixed(1)} One Way hrs × 2 = ${wholeNumberFormatter.format(totals.billableHours)} billable hours`,
-                `${wholeNumberFormatter.format(totals.billableHours)} billable hrs × ${currencyFormatter.format(state.hourRate)}/hr`
-            ];
+            const billableHours = Math.ceil(state.hours * roundtripMultiplier);
+            const totalHourCost = billableHours * state.hourRate;
 
-            if (totals.validExpenses.length > 0) {
-                lines.push("");
-                lines.push("Additional Expenses:");
-                totals.validExpenses.forEach(e => {
-                    lines.push(`${e.name}: ${currencyFormatter.format(e.cost)}`);
-                });
+            let deductionText = "";
+            if (milesTotal > 0 && milesTotal < DEDUCTIBLE_MILES) {
+                deductionText = `${wholeNumberFormatter.format(milesTotal)} - ${wholeNumberFormatter.format(milesTotal)} non-billable = ${wholeNumberFormatter.format(billableMiles)} billable miles`;
+            } else {
+                deductionText = `${wholeNumberFormatter.format(milesTotal)} - ${DEDUCTIBLE_MILES.toFixed(0)} non-billable = ${wholeNumberFormatter.format(billableMiles)} billable miles`;
             }
 
+            let lines = [
+                `Mileage Cost: ${currencyFormatter.format(totalMileCost)}`,
+                `${state.miles.toFixed(1)} One Way miles ├ù 2 = ${wholeNumberFormatter.format(milesTotal)} RT total miles`,
+                deductionText,
+                `${wholeNumberFormatter.format(billableMiles)} billable miles ├ù ${rateFormatter.format(state.mileRate)}`,
+                "",
+                `Driving Time Cost: ${currencyFormatter.format(totalHourCost)}`,
+                `${state.hours.toFixed(1)} One Way hrs ├ù 2 = ${wholeNumberFormatter.format(billableHours)} billable hours`,
+                `${wholeNumberFormatter.format(billableHours)} billable hrs ├ù ${currencyFormatter.format(state.hourRate)}/hr`
+            ];
+
+            let totalAdditional = 0;
+            if (state.expenses.length > 0) {
+                const validExpenses = state.expenses.filter(e => e.cost > 0);
+                if (validExpenses.length > 0) {
+                    lines.push("");
+                    lines.push("Additional Expenses:");
+                    validExpenses.forEach(e => {
+                        totalAdditional += e.cost;
+                        lines.push(`${e.name || "Item"}: ${currencyFormatter.format(e.cost)}`);
+                    });
+                }
+            }
+
+            const grandTotal = totalMileCost + totalHourCost + totalAdditional;
             lines.push("");
-            lines.push(`Grand Total: ${currencyFormatter.format(totals.grandTotal)}`);
+            lines.push(`Grand Total: ${currencyFormatter.format(grandTotal)}`);
 
             const textToCopy = lines.join("\n");
             const btn = document.getElementById('copyBtn');
-            const mobileCopyBtn = document.getElementById('mobileCopyBtn');
 
             const showSuccess = () => {
-                if (btn) {
-                    btn.innerText = "Copied!";
-                    btn.classList.add('success');
-                    setTimeout(() => {
-                        btn.innerText = "Copy to Clipboard";
-                        btn.classList.remove('success');
-                    }, 2000);
-                }
-                if (mobileCopyBtn) {
-                    mobileCopyBtn.innerText = "✓ Copied!";
-                    mobileCopyBtn.classList.add('success');
-                    setTimeout(() => {
-                        mobileCopyBtn.innerText = "📋 Copy";
-                        mobileCopyBtn.classList.remove('success');
-                    }, 2000);
-                }
+                btn.innerText = "Copied!";
+                btn.classList.add('success');
+                setTimeout(() => {
+                    btn.innerText = "Copy to Clipboard";
+                    btn.classList.remove('success');
+                }, 2000);
             };
 
             if (navigator.clipboard && window.isSecureContext) {
@@ -1493,14 +1230,7 @@
             });
 
             const savedStart = localStorage.getItem('costCalc_startAddress') ?? FALLBACK_START_ADDRESS;
-            const savedLat = localStorage.getItem('costCalc_startLat');
-            const savedLon = localStorage.getItem('costCalc_startLon');
-            const startInput = document.getElementById('startLoc');
-            startInput.value = savedStart;
-            if (savedLat && savedLon) {
-                startInput.setAttribute('data-lat', savedLat);
-                startInput.setAttribute('data-lon', savedLon);
-            }
+            document.getElementById('startLoc').value = savedStart;
             document.getElementById('defaultStartInput').value = savedStart;
 
             const savedMileRate = localStorage.getItem('costCalc_mileRate');
@@ -1525,11 +1255,6 @@
             document.getElementById('resetBtn').addEventListener('click', resetCalculator);
             document.getElementById('addExpenseBtn').addEventListener('click', addExpenseRow);
             document.getElementById('copyBtn').addEventListener('click', copyBreakdown);
-
-            const mobileCopyBtn = document.getElementById('mobileCopyBtn');
-            if (mobileCopyBtn) {
-                mobileCopyBtn.addEventListener('click', copyBreakdown);
-            }
 
             const milesInput = document.getElementById('miles');
             const hoursInput = document.getElementById('hours');
@@ -1588,7 +1313,7 @@
                 if (!expenseItem) return;
 
                 if (e.target.classList.contains('expense-name')) {
-                    expenseItem.name = e.target.value;
+                    expenseItem.name = e.target.value.trim();
                 } else if (e.target.classList.contains('expense-cost')) {
                     expenseItem.cost = parseFloat(e.target.value) || 0;
                 }
@@ -1606,13 +1331,10 @@
                 }
             });
 
-            // Close autocomplete lists only when clicking outside autocomplete containers
             document.addEventListener('click', (e) => {
-                if (!e.target.closest('.autocomplete-container')) {
-                    document.getElementById("startList").innerHTML = "";
-                    document.getElementById("endList").innerHTML = "";
-                    document.getElementById("defaultStartList").innerHTML = "";
-                }
+                if (e.target.id !== "startLoc") document.getElementById("startList").innerHTML = "";
+                if (e.target.id !== "endLoc") document.getElementById("endList").innerHTML = "";
+                if (e.target.id !== "defaultStartInput") document.getElementById("defaultStartList").innerHTML = "";
             });
         });
     </script>

@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Cost Calculator</title>
+    <meta name="version" content="1.1">
+    <title>Cost Calculator v1.1</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Immediate theme check to prevent white flash in dark vehicle cabs -->
     <script>
@@ -719,7 +720,7 @@
 
     <div class="app-wrapper">
         <div class="header-row">
-            <h1>Cost Calculator</h1>
+            <h1>Cost Calculator <span class="version-tag" style="font-size: 12px; font-weight: 500; color: var(--text-muted); vertical-align: middle;">v1.1</span></h1>
             <div class="header-controls">
                 <button type="button" id="themeToggleBtn" class="theme-toggle-btn" aria-label="Toggle Theme">🌙 Dark</button>
                 <button type="button" id="settingsToggleBtn" class="settings-toggle-btn">⚙️ Settings <span id="settingsChevron">▾</span></button>
@@ -830,6 +831,7 @@
     </div>
 
     <script>
+        const APP_VERSION = "1.1";
         const DEDUCTIBLE_MILES = 30.0;
         const DRIVE_TIME_ADJUSTMENT = 0.81;
         const FALLBACK_START_ADDRESS = "";
