@@ -1,16 +1,21 @@
 #!/usr/bin/env node
 /**
  * bump-version.js
- * Automatically bumps version across ExpenseCalc files, archives previous version,
- * and updates CHANGELOG.md and README.md.
+ * Automatically bumps version across ExpenseCalc files:
+ * 1. Archives the previous version as ExpenseCalc_v{old}.html
+ * 2. Saves the new release snapshot as ExpenseCalc_v{new}.html
+ * 3. Copies the latest version to index.html (overwriting current index.html)
+ * 4. Updates CHANGELOG.md and README.md
+ * 5. Automatically commits and uploads to GitHub (overwriting remote index.html)
  *
  * Usage:
- *   node bump-version.js <new_version> "[optional release notes]"
- *   e.g.: node bump-version.js 1.2 "Added dark mode enhancements and export options"
+ *   node bump-version.js <new_version> "[optional release notes]" [--no-push]
+ *   e.g.: node bump-version.js 1.2 "Added PDF export and refreshed dark theme"
  */
 
 const fs = require('fs');
 const path = require('path');
+const { execSync } = require('child_process');
 
 const rootDir = __dirname;
 const indexPath = path.join(rootDir, 'index.html');
@@ -24,13 +29,16 @@ if (!fs.existsSync(indexPath)) {
 
 const indexContent = fs.readFileSync(indexPath, 'utf8');
 
-// 1. Detect current version
+// 1. Detect current version from index.html
 const versionMetaMatch = indexContent.match(/<meta\s+name=["']version["']\s+content=["']([^"']+)["']/i);
 const currentVersion = versionMetaMatch ? versionMetaMatch[1] : '1.1';
 
-// 2. Determine target version
-let targetVersion = process.argv[2];
-let notes = process.argv.slice(3).join(' ').trim();
+// 2. Parse arguments
+const args = process.argv.slice(2).filter(arg => arg !== '--no-push');
+const noPush = process.argv.includes('--no-push');
+
+let targetVersion = args[0];
+let notes = args.slice(1).join(' ').trim();
 
 if (!targetVersion) {
     const parts = currentVersion.split('.');
@@ -50,11 +58,11 @@ if (targetVersion === currentVersion) {
     process.exit(1);
 }
 
-console.log(`\n========================================`);
+console.log(`\n======================================================`);
 console.log(`  ExpenseCalc Version Bump: v${currentVersion} -> v${targetVersion}`);
-console.log(`========================================\n`);
+console.log(`======================================================\n`);
 
-// 3. Archive current version if not already archived
+// 3. Save previous version archive if not already archived
 const currentArchiveFile = path.join(rootDir, `ExpenseCalc_v${currentVersion}.html`);
 if (!fs.existsSync(currentArchiveFile)) {
     fs.copyFileSync(indexPath, currentArchiveFile);
@@ -63,48 +71,48 @@ if (!fs.existsSync(currentArchiveFile)) {
     console.log(`ℹ Previous version already archived: ExpenseCalc_v${currentVersion}.html`);
 }
 
-// 4. Update index.html
-let newIndexContent = indexContent;
+// 4. Update markup and script constants in memory
+let newContent = indexContent;
 
 // Update meta version
-newIndexContent = newIndexContent.replace(
+newContent = newContent.replace(
     /(<meta\s+name=["']version["']\s+content=["'])[^"']+([^>]*>)/i,
     `$1${targetVersion}$2`
 );
 
 // Update title
-newIndexContent = newIndexContent.replace(
+newContent = newContent.replace(
     /(<title>Cost Calculator)(?: v[^<]*)?(<\/title>)/i,
     `$1 v${targetVersion}$2`
 );
 
 // Update h1 version badge
-newIndexContent = newIndexContent.replace(
+newContent = newContent.replace(
     /(<span\s+class=["']version-tag["'][^>]*>)[^<]*(<\/span>)/i,
     `$1v${targetVersion}$2`
 );
 
 // Update APP_VERSION constant
-newIndexContent = newIndexContent.replace(
+newContent = newContent.replace(
     /(const\s+APP_VERSION\s*=\s*["'])[^"']+(["'];)/i,
     `$1${targetVersion}$2`
 );
 
-fs.writeFileSync(indexPath, newIndexContent, 'utf8');
-console.log(`✓ Updated index.html with version v${targetVersion}`);
-
-// 5. Create new version snapshot file
+// 5. Save the latest version snapshot as ExpenseCalc_v{targetVersion}.html
 const newArchiveFile = path.join(rootDir, `ExpenseCalc_v${targetVersion}.html`);
-fs.copyFileSync(indexPath, newArchiveFile);
-console.log(`✓ Created new release snapshot: ExpenseCalc_v${targetVersion}.html`);
+fs.writeFileSync(newArchiveFile, newContent, 'utf8');
+console.log(`✓ Saved latest version snapshot: ExpenseCalc_v${targetVersion}.html`);
 
-// 6. Update CHANGELOG.md
+// 6. Make a copy named index.html overwriting the current one
+fs.copyFileSync(newArchiveFile, indexPath);
+console.log(`✓ Copied latest version to index.html (overwriting current index.html)`);
+
+// 7. Update CHANGELOG.md
 const today = new Date().toISOString().split('T')[0];
 if (fs.existsSync(changelogPath)) {
     const changelogContent = fs.readFileSync(changelogPath, 'utf8');
     const newEntry = `## [${targetVersion}] - ${today}\n\n${notes ? `### Notes\n- ${notes}\n` : '### Changed\n- Version update.\n'}\n`;
     
-    // Insert after "---" separator
     const separatorIdx = changelogContent.indexOf('---');
     if (separatorIdx !== -1) {
         const updatedChangelog = changelogContent.slice(0, separatorIdx + 3) + '\n\n' + newEntry + changelogContent.slice(separatorIdx + 3);
@@ -116,7 +124,7 @@ if (fs.existsSync(changelogPath)) {
     }
 }
 
-// 7. Update README.md
+// 8. Update README.md
 if (fs.existsSync(readmePath)) {
     let readmeContent = fs.readFileSync(readmePath, 'utf8');
     
@@ -151,8 +159,25 @@ if (fs.existsSync(readmePath)) {
     console.log(`✓ Updated version references in README.md`);
 }
 
-console.log(`\n🎉 Success! Version bumped to v${targetVersion}`);
-console.log(`To commit and push these changes:\n`);
-console.log(`  git add .`);
-console.log(`  git commit -m "Bump version to v${targetVersion}"`);
-console.log(`  git push origin main\n`);
+// 9. Upload to GitHub overwriting remote index.html
+if (!noPush) {
+    try {
+        console.log(`\nUploading latest index.html and archives to GitHub...`);
+        execSync('git add index.html ExpenseCalc_v*.html CHANGELOG.md README.md bump-version.js', { stdio: 'inherit' });
+        execSync(`git commit -m "Release v${targetVersion}: update index.html and archive ExpenseCalc_v${targetVersion}.html"`, { stdio: 'inherit' });
+        execSync('git push origin main', { stdio: 'inherit' });
+        console.log(`\n🎉 Successfully uploaded! Remote index.html has been overwritten with v${targetVersion}.`);
+    } catch (gitErr) {
+        console.warn(`\n⚠ Git auto-upload encountered an issue: ${gitErr.message}`);
+        console.log(`You can manually push using:`);
+        console.log(`  git add .`);
+        console.log(`  git commit -m "Release v${targetVersion}"`);
+        console.log(`  git push origin main`);
+    }
+} else {
+    console.log(`\nℹ Skipped GitHub upload (--no-push flag detected).`);
+    console.log(`To commit and push manually:`);
+    console.log(`  git add .`);
+    console.log(`  git commit -m "Release v${targetVersion}"`);
+    console.log(`  git push origin main\n`);
+}

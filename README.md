@@ -61,10 +61,11 @@ node bump-version.js 1.2 "Added PDF export and refreshed dark theme"
 
 ### What `bump-version.js` Does Automatically:
 1. Detects the current active version from `index.html`.
-2. Archives the current version as `ExpenseCalc_v{old}.html` (if not already archived).
-3. Updates the version tag and page title inside `index.html`.
-4. Saves a duplicate snapshot as `ExpenseCalc_v{new}.html`.
-5. Prepend the new release notes to `CHANGELOG.md` and updates `README.md`.
+2. Archives the previous version as `ExpenseCalc_v{old}.html` (if not already archived).
+3. Saves the new version snapshot as `ExpenseCalc_v{new}.html`.
+4. Copies the latest version to `index.html` (overwriting the current `index.html`).
+5. Updates the release date and notes in `CHANGELOG.md` and version references in `README.md`.
+6. Automatically commits and uploads to GitHub, overwriting the remote `index.html`.
 
 ---
 
